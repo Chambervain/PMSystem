@@ -1,5 +1,6 @@
 package com.example.ProductManagement.controller;
 
+import com.example.ProductManagement.dto.UserDetailsDto;
 import com.example.ProductManagement.dto.UserDto;
 import com.example.ProductManagement.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,12 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable String name) {
         userService.deleteAccount(name);
         return ResponseEntity.ok("The user has been deleted successfully !");
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<UserDetailsDto> getUserDetails(@PathVariable String name) {
+        UserDetailsDto userDetailsDto = userService.getAccountDetails(name);
+        return ResponseEntity.ok(userDetailsDto);
     }
 
 }
