@@ -1,0 +1,7 @@
+spring.application.name=ProductManagement
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/pms
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+spring
