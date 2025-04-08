@@ -1,5 +1,6 @@
 package com.example.ProductManagement.controller;
 
+import com.example.ProductManagement.dto.ProductCreationDto;
 import com.example.ProductManagement.dto.ProductDto;
 import com.example.ProductManagement.entity.Product;
 import com.example.ProductManagement.service.ProductService;
@@ -17,8 +18,8 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
-        ProductDto savedProduct = productService.createProduct(productDto);
+    public ResponseEntity<ProductCreationDto> createProduct(@RequestBody ProductCreationDto productCreationDto){
+        ProductCreationDto savedProduct = productService.createProduct(productCreationDto);
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
 

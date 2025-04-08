@@ -1,10 +1,13 @@
 package com.example.ProductManagement.service.impl;
 
+import com.example.ProductManagement.dto.ProductCreationDto;
 import com.example.ProductManagement.dto.ProductDto;
 import com.example.ProductManagement.entity.Product;
+import com.example.ProductManagement.entity.User;
 import com.example.ProductManagement.exception.ResourceNotFoundException;
 import com.example.ProductManagement.mapper.ProductMapper;
 import com.example.ProductManagement.repository.ProductRepository;
+import com.example.ProductManagement.repository.UserRepository;
 import com.example.ProductManagement.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +19,17 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+    private UserRepository userRepository;
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = ProductMapper.mapToProduct(productDto);
+    public ProductCreationDto createProduct(ProductCreationDto productCreationDto) {
+        Product product = ProductMapper.mapToProductCreation(productCreationDto);
+        User owner = userRepository.findByName(productCreationDto.getOwner())
+                .orElseThrow(() -> new ResourceNotFoundException("Unable to create the product, no such existed owner found: " + productCreationDto.getOwner()));
+
+        product.setOwner(owner);
         Product savedProduct = productRepository.save(product);
-        return ProductMapper.mapToProductDto(savedProduct);
+        return ProductMapper.mapToProductCreationDto(savedProduct);
     }
 
     @Override

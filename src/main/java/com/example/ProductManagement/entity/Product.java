@@ -23,5 +23,9 @@ public class Product {
     private int quantity;
 
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_name", referencedColumnName = "name")
+    private User owner;
     
 }

@@ -3,11 +3,13 @@ package com.example.ProductManagement.service.impl;
 import com.example.ProductManagement.dto.UserDto;
 import com.example.ProductManagement.entity.User;
 import com.example.ProductManagement.exception.ResourceNotFoundException;
+import com.example.ProductManagement.exception.UserAlreadyExistsException;
 import com.example.ProductManagement.mapper.UserMapper;
 import com.example.ProductManagement.repository.UserRepository;
 import com.example.ProductManagement.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +20,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createAccount(UserDto userDto) {
         User user = UserMapper.mapToUser(userDto);
+        Optional<User> optionalUser = userRepository.findByName(user.getName());
+        if(optionalUser.isPresent()){
+            throw new UserAlreadyExistsException("Unable to create the user account, it is already existed: " + user.getName());
+        }
+
         User savedUser = userRepository.save(user);
         return UserMapper.mapToUserDto(savedUser);
     }

@@ -1,12 +1,12 @@
 package com.example.ProductManagement.service;
 
+import com.example.ProductManagement.dto.ProductCreationDto;
 import com.example.ProductManagement.dto.ProductDto;
-
 import java.util.List;
 
 public interface ProductService {
 
-    ProductDto createProduct(ProductDto productDto);
+    ProductCreationDto createProduct(ProductCreationDto productCreationDto);
 
     ProductDto getProductById(Long id);
 
