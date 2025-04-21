@@ -8,8 +8,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/products")
@@ -43,9 +46,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") Long id){
+    public ResponseEntity<Map<String, String>> deleteProduct(@PathVariable("id") Long id){
         productService.deleteProduct(id);
-        return ResponseEntity.ok("The product has been deleted successfully !");
+        return ResponseEntity.ok(Collections.singletonMap("message", "The product has been deleted successfully !"));
     }
 
 }
