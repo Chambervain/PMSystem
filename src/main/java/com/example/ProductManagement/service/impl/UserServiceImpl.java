@@ -12,9 +12,9 @@ import com.example.ProductManagement.repository.UserRepository;
 import com.example.ProductManagement.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
                 new ResourceNotFoundException("Unable to delete the user, not existed with the given name: " + name));
 
         userRepository.deleteByName(name);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map((element) -> UserMapper.mapToUserDto(element)).collect(Collectors.toList());
     }
 
     @Override

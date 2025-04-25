@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -23,9 +26,15 @@ public class UserController {
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<String> deleteUser(@PathVariable String name) {
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String name) {
         userService.deleteAccount(name);
-        return ResponseEntity.ok("The user has been deleted successfully !");
+        return ResponseEntity.ok(Collections.singletonMap("message", "The user has been deleted successfully !"));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        List<UserDto> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{name}")
