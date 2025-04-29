@@ -2,7 +2,6 @@ package com.example.ProductManagement.controller;
 
 import com.example.ProductManagement.dto.ProductCreationDto;
 import com.example.ProductManagement.dto.ProductDto;
-import com.example.ProductManagement.entity.Product;
 import com.example.ProductManagement.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/products")
